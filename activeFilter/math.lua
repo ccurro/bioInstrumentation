@@ -58,8 +58,10 @@ function mag2db(resp)
 	return resp:clone():log():div(torch.log(10)):mul(20)
 end
 
+gnuplot.pdffigure('magResponse.pdf')
 gnuplot.plot({freq:narrow(1,1,21),mag2db(resp):narrow(1,1,21),'-'},{freq:narrow(1,1,21),db3:narrow(1,1,21),'-'})
 gnuplot.grid(true)
 gnuplot.xlabel('Frequency (Hz)')
 gnuplot.ylabel('Magnitude (dB)')
 gnuplot.title('Magnitude Response of a 2nd Order Butterworth Filter')
+gnuplot.plotflush()
