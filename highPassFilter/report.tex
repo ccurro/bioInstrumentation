@@ -22,7 +22,7 @@ about 100~Hz.
 \caption{Proposed schematic for the filter.}
 \end{figure}
 \paragraph{} The first step in the design process was selecting the appropriate
-components to meet the specification. The specification was a Butterworth filter with a cuttoff frequency of 100~Hz. Furthermore two
+components to meet the specification. The specification was a Butterworth filter with a cutoff frequency of 100~Hz. Furthermore two
 constraints were set which reduced the size of the parameter space; the two
 capacitors were constrained to be of equal value and the DC voltage gain of the
 system was set to be 2 (6~dB). The latter constraint imposes the condition that
@@ -51,11 +51,11 @@ with the following equation:
 \begin{equation}
 2\pi f_c = \frac{1}{\sqrt{R_2R_4C^2}}
 \end{equation}
-This equation can rewrittern to give an expression for $C$ in terms of $R_2$
-$R_4$. Using the ratio of $R_2$ and $R_4$ above, this expression can be
+This equation can be rewritten to give an expression for $C$ in terms of $R_2$
+and $R_4$. Using the ratio of $R_2$ and $R_4$ above, this expression can be
 simplified to use only $R_2$. Using this expression, a linear sweep was
-performed to find a value for $R_2$ that resulting an a $C$ value that was
-available in the lab. This theorecal value was 460~nF. Ultimately the
+performed to find a value for $R_2$ that resulted in a $C$ value that was
+available in the lab. This theoretical value was 460~nF. Ultimately, the
 capacitors used had a value of 487~nF as measured by a RSR M9803R
 Multimeter. 
 
@@ -73,18 +73,17 @@ would still agree with a Butterworth response.
 \includegraphics[width=0.9\linewidth]{simResponse.pdf}
 \caption{Simulated frequency response of the high pass filter}
 \end{figure}
-When constructed, the experimental results did match the simulation. In fact the
-circuit was unstable, randomly throwing rail voltages at the output. Various
+When constructed, the experimental results did not match the simulation. In fact
+the circuit was unstable, randomly throwing rail voltages at the output. Various
 attempts at debugging were made, but ultimately the only way the circuit would
 give a stable response was if the gain of two was forfeited and instead had
 unity gain. By changing the gain the Q factor was adjusted even further, so the
 filter did not give the planned Butterworth response, but instead gave a
-Chebyshev Type 1 response, with a a very weak, long ripple in the passband.
+Chebyshev Type 1 response, with a very weak, long ripple in the passband.
 \begin{marginfigure}
 \centering
 \label{schemExp}
-\includegraphics[width=1.1\linewidth,trim=0 .3in 0 .35in,clip=true]
-{schemExp.pdf}
+\includegraphics[width=1.1\linewidth,trim=0 .3in 0 .35in,clip=true]{schemExp.pdf}
 \caption{Final schematic for the filter.}
 \end{marginfigure}
 \clearpage
