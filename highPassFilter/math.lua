@@ -4,7 +4,7 @@
 ]]
 
 require 'gnuplot'
-csv = require 'csv'
+csv = require 'csv2tensor'
 
 f = 100 -- Corner frequency
 Q = 1/torch.sqrt(2)  -- W of butterworth filter by definition
@@ -46,44 +46,29 @@ print(getf(1.5e3,7.8e3,470e-9))
 
 print(getf(1.5e3,7.01e3,487e-9))
 
-sim = torch.Tensor(3,1000)
-f = csv.open("sim.csv")
-local line = 1
-for fields in f:lines() do
-  for i, v in ipairs(fields) do 
-    sim[i][line] = tonumber(v)
-  end
-  line = line + 1
-end
-f:close()
+sim = csv.load('sim.csv'):t()
 
 -- sim[2] = torch.pow(10,sim[2]:div(20))
-gnuplot.figure(1)
+-- gnuplot.figure(1)
+gnuplot.pdffigure('simResponse.pdf')
 gnuplot.plot({sim[1],sim[2],'-'})
 gnuplot.xlabel('Frequency (Hz)')
 gnuplot.ylabel('Magnitude (dB)')
-gnuplot.title('Magnitude Response of a High Pass Filter')
+gnuplot.title('Simulated Magnitude Response of a High Pass Filter')
 gnuplot.grid(true)
+gnuplot.plotflush()
 
 -- Result of measurement
 
-freq = torch.Tensor(2,36)
-f = csv.open("freq.csv")
-local line = 1
-for fields in f:lines() do
-  for i, v in ipairs(fields) do 
-    freq[i][line] = tonumber(v)
-  end
-  line = line + 1
-end
-f:close()
+freq = csv.load('freq.csv'):t()
 
 db3  = torch.Tensor(freq[2]:numel()):fill(-3)
 
-gnuplot.figure(2)
+-- gnuplot.figure(2)
+gnuplot.pdffigure('expResponse.pdf')
 gnuplot.plot({{freq[1],freq[2]:log():div(torch.log(10)):mul(20),'-'},{freq[1],db3,'-'}})
 gnuplot.xlabel('Frequency (Hz)')
 gnuplot.ylabel('Magnitude (dB)')
 gnuplot.title('Magnitude Response of a High Pass Filter')
 gnuplot.grid(true)
-
+gnuplot.plotflush()
